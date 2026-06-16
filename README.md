@@ -105,6 +105,11 @@ La colección incluye:
 - **03 - Productos**: listar, obtener, registrar, actualizar y borrar.
 - **04 - Demostración de roles**: el USER puede listar (200) pero recibe 403 al intentar crear.
 
-El token JWT se inyecta automáticamente en cada petición a partir de la respuesta del login correspondiente (encadenamiento de respuestas de Insomnia). Si su versión de Insomnia no resuelve el encadenamiento, ejecute primero el login y copie el `token` en el header `Authorization`.
+El token JWT y los **IDs** se inyectan automáticamente mediante encadenamiento de respuestas de Insomnia:
+- El `Authorization` se toma de la respuesta del login correspondiente.
+- "Obtener / Actualizar / Borrar Categoría" usan el `id` que devolvió "Registrar Categoría".
+- "Registrar / Actualizar Producto" toman el `categoriaId` de la categoría creada, y "Obtener / Actualizar / Borrar Producto" usan el `id` que devolvió "Registrar Producto".
 
-> Sugerencia de flujo: primero ejecute **Registrar Categoría**, luego **Registrar Producto** (usa `categoriaId: 1`).
+Así la colección funciona sobre una base de datos recién reiniciada (los IDs arrancan en 1 en cada ejecución) sin depender de datos previos ni de IDs escritos a mano.
+
+> Flujo recomendado dentro de cada grupo: ejecutar las peticiones en el orden numerado (1 → 5). Comience por **02 - Categorías → 1) Registrar Categoría** y luego **03 - Productos → 1) Registrar Producto**. Insomnia resuelve las dependencias automáticamente; si su versión no encadena respuestas, ejecute primero el login y la creación, y copie el `token`/`id` correspondientes.
