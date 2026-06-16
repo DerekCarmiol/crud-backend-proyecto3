@@ -1,0 +1,294 @@
+{
+  "_type": "export",
+  "__export_format": 4,
+  "__export_date": "2026-06-16T12:00:00.000Z",
+  "__export_source": "insomnia.desktop.app:v9.0.0",
+  "resources": [
+    {
+      "_id": "wrk_proyecto3",
+      "_type": "workspace",
+      "parentId": null,
+      "name": "Proyecto 3 - CRUD Back-end",
+      "description": "Colección de pruebas para el CRUD de Productos y Categorías con JWT y roles.",
+      "scope": "collection"
+    },
+    {
+      "_id": "env_base",
+      "_type": "environment",
+      "parentId": "wrk_proyecto3",
+      "name": "Base Environment",
+      "data": {
+        "base_url": "http://localhost:8080"
+      },
+      "dataPropertyOrder": {
+        "&": ["base_url"]
+      },
+      "metaSortKey": 1
+    },
+    {
+      "_id": "fld_auth",
+      "_type": "request_group",
+      "parentId": "wrk_proyecto3",
+      "name": "01 - Autenticación",
+      "metaSortKey": -300
+    },
+    {
+      "_id": "fld_categorias",
+      "_type": "request_group",
+      "parentId": "wrk_proyecto3",
+      "name": "02 - Categorías",
+      "metaSortKey": -200
+    },
+    {
+      "_id": "fld_productos",
+      "_type": "request_group",
+      "parentId": "wrk_proyecto3",
+      "name": "03 - Productos",
+      "metaSortKey": -100
+    },
+    {
+      "_id": "fld_roles",
+      "_type": "request_group",
+      "parentId": "wrk_proyecto3",
+      "name": "04 - Demostración de roles (USER)",
+      "metaSortKey": 0
+    },
+    {
+      "_id": "req_login_admin",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login SUPER-ADMIN-ROLE",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"superadmin@proyecto3.com\",\n  \"password\": \"admin123\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "metaSortKey": -300
+    },
+    {
+      "_id": "req_login_user",
+      "_type": "request",
+      "parentId": "fld_auth",
+      "name": "Login USER",
+      "method": "POST",
+      "url": "{{ _.base_url }}/auth/login",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"email\": \"user@proyecto3.com\",\n  \"password\": \"user123\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" }
+      ],
+      "metaSortKey": -290
+    },
+    {
+      "_id": "req_cat_listar",
+      "_type": "request",
+      "parentId": "fld_categorias",
+      "name": "Listar Categorías",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/categorias",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -250
+    },
+    {
+      "_id": "req_cat_obtener",
+      "_type": "request",
+      "parentId": "fld_categorias",
+      "name": "Obtener Categoría por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/categorias/1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -240
+    },
+    {
+      "_id": "req_cat_crear",
+      "_type": "request",
+      "parentId": "fld_categorias",
+      "name": "Registrar Categoría (SUPER-ADMIN)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/categorias",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nombre\": \"Electrónica\",\n  \"descripcion\": \"Dispositivos electrónicos\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -230
+    },
+    {
+      "_id": "req_cat_actualizar",
+      "_type": "request",
+      "parentId": "fld_categorias",
+      "name": "Actualizar Categoría (SUPER-ADMIN)",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/categorias/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nombre\": \"Electrónica y Tecnología\",\n  \"descripcion\": \"Dispositivos y gadgets\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -220
+    },
+    {
+      "_id": "req_cat_borrar",
+      "_type": "request",
+      "parentId": "fld_categorias",
+      "name": "Borrar Categoría (SUPER-ADMIN)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/categorias/1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -210
+    },
+    {
+      "_id": "req_prod_listar",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Listar Productos",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/productos",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -150
+    },
+    {
+      "_id": "req_prod_obtener",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Obtener Producto por id",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/productos/1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -140
+    },
+    {
+      "_id": "req_prod_crear",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Registrar Producto (SUPER-ADMIN)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/productos",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nombre\": \"Laptop\",\n  \"descripcion\": \"Laptop 16GB RAM\",\n  \"precio\": 850000.00,\n  \"cantidadEnStock\": 10,\n  \"categoriaId\": 1\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -130
+    },
+    {
+      "_id": "req_prod_actualizar",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Actualizar Producto (SUPER-ADMIN)",
+      "method": "PUT",
+      "url": "{{ _.base_url }}/api/productos/1",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nombre\": \"Laptop Pro\",\n  \"descripcion\": \"Laptop 32GB RAM\",\n  \"precio\": 1200000.00,\n  \"cantidadEnStock\": 5,\n  \"categoriaId\": 1\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -120
+    },
+    {
+      "_id": "req_prod_borrar",
+      "_type": "request",
+      "parentId": "fld_productos",
+      "name": "Borrar Producto (SUPER-ADMIN)",
+      "method": "DELETE",
+      "url": "{{ _.base_url }}/api/productos/1",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_admin', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -110
+    },
+    {
+      "_id": "req_user_listar",
+      "_type": "request",
+      "parentId": "fld_roles",
+      "name": "Listar Productos con token USER (200 OK)",
+      "method": "GET",
+      "url": "{{ _.base_url }}/api/productos",
+      "headers": [
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_user', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -50
+    },
+    {
+      "_id": "req_user_crear_403",
+      "_type": "request",
+      "parentId": "fld_roles",
+      "name": "Crear Categoría con token USER (403 Forbidden)",
+      "method": "POST",
+      "url": "{{ _.base_url }}/api/categorias",
+      "body": {
+        "mimeType": "application/json",
+        "text": "{\n  \"nombre\": \"No permitido\",\n  \"descripcion\": \"El rol USER no puede crear\"\n}"
+      },
+      "headers": [
+        { "name": "Content-Type", "value": "application/json" },
+        {
+          "name": "Authorization",
+          "value": "Bearer {% response 'body', 'req_login_user', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+        }
+      ],
+      "metaSortKey": -40
+    }
+  ]
+}
