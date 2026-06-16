@@ -39,7 +39,7 @@ Se insertan automáticamente al arrancar el proyecto (contraseña encriptada en 
 
 ## Base de datos
 
-Por defecto se conecta a `jdbc:mysql://localhost:3306/proyecto3_db` con usuario `root` / `root`.
+Por defecto se conecta a `jdbc:mysql://localhost:3306/proyecto3_db` con usuario `root` / `Derek123`.
 Ajuste las credenciales en [`src/main/resources/application.properties`](src/main/resources/application.properties) según su instalación.
 
 ### Opción A — Docker (recomendado)
